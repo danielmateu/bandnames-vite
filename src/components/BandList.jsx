@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 
 // eslint-disable-next-line react/prop-types
-export const BandList = ({ data }) => {
+export const BandList = ({ data, voteBand }) => {
     // console.log(data);
     const [bands, setBands] = useState(data)
 
@@ -26,7 +26,7 @@ export const BandList = ({ data }) => {
         console.log(id, name);
 
         // Disparar el evento del socket
-        
+
 
     }
 
@@ -56,8 +56,11 @@ export const BandList = ({ data }) => {
                                     />
                                 </td>
                                 <td className="border px-4 py-2">{band.votes}</td>
-                                <td className="border px-4 py-2 flex justify-around">
-                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+                                <td className="border px-4 py-2 flex justify-around gap-4">
+                                    <button
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                                        onClick={() => voteBand(band.id)}
+                                    >
                                         ⭐
                                     </button>
                                     <button className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">

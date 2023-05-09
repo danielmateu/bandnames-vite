@@ -40,10 +40,14 @@ function App() {
     })
   }, [socket])
 
+  const voteBand = (id) => {
+    // console.log('Votar banda', id);
+    socket.emit('vote-band', id)
+
+  }
 
   return (
     <div className="bg-gray-400 h-screen">
-      {/* <h1 className="text-white font-semibold">Hello world!</h1> */}
 
       <p className="text-md bg-white p-2">Service status: {
         onLine ?
@@ -51,10 +55,12 @@ function App() {
           (<span className="text-red-500 font-bold">Offline</span>)
       }</p>
 
-      <div className="flex flex-col md:flex-row justify-center items-start p-10 gap-4">
-        <BandList data={bands}/>
+      <div className="flex flex-col md:flex-row justify-center items-center md:items-start py-10 gap-4">
+        <BandList
+          data={bands}
+          voteBand={voteBand}
+        />
         <BandAdd />
-
       </div>
     </div>
   )

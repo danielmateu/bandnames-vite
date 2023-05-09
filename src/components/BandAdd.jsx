@@ -2,7 +2,7 @@
 
 export const BandAdd = () => {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col w-6/12 md:w-3/12">
             <h2 className="text-white font-semibold">Agregar Banda</h2>  
             <form className="flex flex-col gap-2">
                 <input
