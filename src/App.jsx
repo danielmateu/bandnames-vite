@@ -63,7 +63,7 @@ function App() {
   }
 
   return (
-    <div className="bg-gray-400 h-screen">
+    <div className="bg-gray-400 min-h-screen">
 
       <p className="text-md bg-white p-2">Service status: {
         onLine ?
