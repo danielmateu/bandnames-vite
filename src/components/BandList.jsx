@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 
-
 // eslint-disable-next-line react/prop-types
-export const BandList = ({ data, voteBand }) => {
+export const BandList = ({ data, voteBand, deleteBand }) => {
     // console.log(data);
     const [bands, setBands] = useState(data)
 
@@ -30,48 +29,63 @@ export const BandList = ({ data, voteBand }) => {
 
     }
 
-
     return (
+
         <div className="w-1/2">
-            <h2 className="text-white font-semibold">Lista de Bandas</h2>
-            <table className="table-auto w-full bg-slate-200 rounded">
-                <thead>
-                    <tr className="text-center bg-slate-300">
-                        <th className="">Nombre</th>
-                        <th className="">Votos</th>
-                        <th className="">Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        bands.map((band) => (
-                            <tr key={band.id} className="text-center hover:bg-slate-300">
-                                <td className="border px-4 py-2 text-start">
-                                    <input
-                                        type="text"
-                                        className="bg-transparent w-full outline-none"
-                                        value={band.name}
-                                        onChange={(e) => handleBandName(e, band.id)}
-                                        onBlur={() => handleOnBlur(band.id, band.name)}
-                                    />
-                                </td>
-                                <td className="border px-4 py-2">{band.votes}</td>
-                                <td className="border px-4 py-2 flex justify-around gap-4">
-                                    <button
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
-                                        onClick={() => voteBand(band.id)}
-                                    >
-                                        ⭐
-                                    </button>
-                                    <button className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">
-                                        Borrar
-                                    </button>
-                                </td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
+            {/* Si hay bandas mostrar la tabla */}
+            {
+                bands.length > 0 ? (
+                    <>
+                        <h2 className="text-white font-semibold">Lista de Bandas</h2>
+                        <table className="table-auto w-full bg-slate-200 rounded">
+                            <thead>
+                                <tr className="text-center bg-slate-300">
+                                    <th className="">Nombre</th>
+                                    <th className="">Votos</th>
+                                    <th className="">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    bands.map((band) => (
+                                        <tr key={band.id} className="text-center hover:bg-slate-300">
+                                            <td className="border px-4 py-2 text-start">
+                                                <input
+                                                    type="text"
+                                                    className="bg-transparent w-full outline-none"
+                                                    value={band.name}
+                                                    onChange={(e) => handleBandName(e, band.id)}
+                                                    onBlur={() => handleOnBlur(band.id, band.name)}
+                                                />
+                                            </td>
+                                            <td className="border px-4 py-2">{band.votes}</td>
+                                            <td className="border px-4 py-2 flex justify-around gap-4">
+                                                <button
+                                                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                                                    onClick={() => voteBand(band.id)}
+                                                >
+                                                    ⭐
+                                                </button>
+                                                <button
+                                                    className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
+                                                    onClick={() => deleteBand(band.id)}
+                                                >
+                                                    Borrar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </>
+                ) : (
+                    <p className="text-white font-semibold">No hay bandas para mostrar</p>
+
+                )
+            }
+
         </div>
+
     )
 }

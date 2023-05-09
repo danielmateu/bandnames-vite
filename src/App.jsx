@@ -3,8 +3,6 @@ import { useEffect, useState } from "react"
 import { BandAdd, BandList } from "./components"
 import io from "socket.io-client"
 
-
-
 const connectSocketServer = () => {
   const socket = io.connect('http://localhost:8080', {
     transports: ['websocket']
@@ -46,6 +44,12 @@ function App() {
 
   }
 
+  // deleteBand
+  const deleteBand = (id) => {
+    // console.log('Borrar banda', id);
+    socket.emit('delete-band', id)
+  }
+
   return (
     <div className="bg-gray-400 h-screen">
 
@@ -59,6 +63,7 @@ function App() {
         <BandList
           data={bands}
           voteBand={voteBand}
+          deleteBand={deleteBand}
         />
         <BandAdd />
       </div>
