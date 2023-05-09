@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 // eslint-disable-next-line react/prop-types
-export const BandList = ({ data, voteBand, deleteBand }) => {
+export const BandList = ({ data, voteBand, deleteBand, changeNameBand }) => {
     // console.log(data);
     const [bands, setBands] = useState(data)
 
@@ -23,10 +23,10 @@ export const BandList = ({ data, voteBand, deleteBand }) => {
 
     const handleOnBlur = (id, name) => {
         console.log(id, name);
-
         // Disparar el evento del socket
+        changeNameBand(id, name)
 
-
+        
     }
 
     return (

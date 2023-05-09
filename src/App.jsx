@@ -50,6 +50,18 @@ function App() {
     socket.emit('delete-band', id)
   }
 
+  // changeNameBand
+  const changeNameBand = (id, name) => {
+    // console.log('Cambiar nombre banda', id, name);
+    socket.emit('change-name-band', { id, name })
+  }
+
+  // addBand
+  const addBand = (name) => {
+    // console.log('Agregar banda', name);
+    socket.emit('add-band', { name })
+  }
+
   return (
     <div className="bg-gray-400 h-screen">
 
@@ -64,8 +76,11 @@ function App() {
           data={bands}
           voteBand={voteBand}
           deleteBand={deleteBand}
+          changeNameBand={changeNameBand}
         />
-        <BandAdd />
+        <BandAdd
+          addBand={addBand}
+        />
       </div>
     </div>
   )
