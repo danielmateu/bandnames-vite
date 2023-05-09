@@ -3,12 +3,32 @@ import { useEffect, useState } from "react"
 
 // eslint-disable-next-line react/prop-types
 export const BandList = ({ data }) => {
-    console.log(data);
+    // console.log(data);
     const [bands, setBands] = useState(data)
 
     useEffect(() => {
         setBands(data)
     }, [data])
+
+    const handleBandName = (e, id) => {
+        // console.log(e.target.value, id);
+        const newName = e.target.value
+        setBands(bands => bands.map(band => {
+            if (band.id === id) {
+                band.name = newName
+            }
+            return band
+        }
+        ))
+    }
+
+    const handleOnBlur = (id, name) => {
+        console.log(id, name);
+
+        // Disparar el evento del socket
+        
+
+    }
 
 
     return (
@@ -26,32 +46,27 @@ export const BandList = ({ data }) => {
                     {
                         bands.map((band) => (
                             <tr key={band.id} className="text-center hover:bg-slate-300">
-                                <td className="border px-4 py-2 text-start">{band.name}</td>
+                                <td className="border px-4 py-2 text-start">
+                                    <input
+                                        type="text"
+                                        className="bg-transparent w-full outline-none"
+                                        value={band.name}
+                                        onChange={(e) => handleBandName(e, band.id)}
+                                        onBlur={() => handleOnBlur(band.id, band.name)}
+                                    />
+                                </td>
                                 <td className="border px-4 py-2">{band.votes}</td>
                                 <td className="border px-4 py-2 flex justify-around">
-                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
                                         ⭐
                                     </button>
-                                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                    <button className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">
                                         Borrar
                                     </button>
                                 </td>
                             </tr>
                         ))
-
                     }
-                    {/* <tr className="text-center hover:bg-slate-300">
-                        <td className="border px-4 py-2 text-start">Iron Maiden</td>
-                        <td className="border px-4 py-2">15</td>
-                        <td className="border px-4 py-2 flex justify-around">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                ⭐
-                            </button>
-                            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                Borrar
-                            </button>
-                        </td>
-                    </tr> */}
                 </tbody>
             </table>
         </div>
