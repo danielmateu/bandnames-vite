@@ -18,6 +18,8 @@ function App() {
   const [socket] = useState(() => connectSocketServer())
   const [onLine, setOnLine] = useState(false)
 
+  const [bands, setBands] = useState([])
+
   useEffect(() => {
     setOnLine(socket.connected)
   }, [onLine])
@@ -26,12 +28,17 @@ function App() {
     socket.on('connect', () => {
       setOnLine(true)
     })
-    
+
     socket.on('disconnect', () => {
       setOnLine(false)
     })
   }, [socket])
 
+  useEffect(() => {
+    socket.on('current-bands', (bands) => {
+      setBands(bands)
+    })
+  }, [socket])
 
 
   return (
@@ -44,8 +51,8 @@ function App() {
           (<span className="text-red-500 font-bold">Offline</span>)
       }</p>
 
-      <div className="flex justify-center items-center p-10 gap-4">
-        <BandList />
+      <div className="flex flex-col md:flex-row justify-center items-start p-10 gap-4">
+        <BandList data={bands}/>
         <BandAdd />
 
       </div>

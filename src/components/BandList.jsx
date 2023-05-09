@@ -1,8 +1,15 @@
+import { useEffect, useState } from "react"
 
 
-export const BandList = () => {
+// eslint-disable-next-line react/prop-types
+export const BandList = ({ data }) => {
+    console.log(data);
+    const [bands, setBands] = useState(data)
 
-    
+    useEffect(() => {
+        setBands(data)
+    }, [data])
+
 
     return (
         <div className="w-1/2">
@@ -16,21 +23,26 @@ export const BandList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="text-center hover:bg-slate-300">
+                    {
+                        bands.map((band) => (
+                            <tr key={band.id} className="text-center hover:bg-slate-300">
+                                <td className="border px-4 py-2 text-start">{band.name}</td>
+                                <td className="border px-4 py-2">{band.votes}</td>
+                                <td className="border px-4 py-2 flex justify-around">
+                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        ⭐
+                                    </button>
+                                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                        Borrar
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+
+                    }
+                    {/* <tr className="text-center hover:bg-slate-300">
                         <td className="border px-4 py-2 text-start">Iron Maiden</td>
                         <td className="border px-4 py-2">15</td>
-                        <td className="border px-4 py-2 flex justify-around">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                ⭐
-                            </button>
-                            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                Borrar
-                            </button>
-                        </td>
-                    </tr>
-                    {/* <tr className="text-center hover:bg-slate-300">
-                        <td className="border px-4 py-2 text-start">Metallica</td>
-                        <td className="border px-4 py-2">5</td>
                         <td className="border px-4 py-2 flex justify-around">
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 ⭐
