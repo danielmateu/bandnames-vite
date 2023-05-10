@@ -6,8 +6,8 @@ export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
 
-    const { socket, onLine } = useSocket(import.meta.env.VITE_SOCKET_SERVER)
-    // const {socket, onLine} = useSocket('https://bandnames-dmp.herokuapp.com/')
+    // const { socket, onLine } = useSocket(import.meta.env.VITE_SOCKET_SERVER)
+    const {socket, onLine} = useSocket('https://bandnames-dmp.herokuapp.com/')
     // const {socket, onLine} = useSocket('http://localhost:8080')
 
     return (
