@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { SocketContext } from "../context/SocketContext"
 
 // eslint-disable-next-line react/prop-types
-export const BandList = ({ data, voteBand, deleteBand, changeNameBand }) => {
+export const BandList = () => {
     // console.log(data);
-    const [bands, setBands] = useState(data)
+    const [bands, setBands] = useState([])
+    const { socket } = useContext(SocketContext)
 
     useEffect(() => {
-        setBands(data)
-    }, [data])
+        socket.on('current-bands', (bands) => {
+            setBands(bands)
+        })
+        // setBands(data)
+        return () => socket.off('current-bands')
+    }, [socket])
 
     const handleBandName = (e, id) => {
         // console.log(e.target.value, id);
@@ -22,11 +28,20 @@ export const BandList = ({ data, voteBand, deleteBand, changeNameBand }) => {
     }
 
     const handleOnBlur = (id, name) => {
-        console.log(id, name);
+        // console.log(id, name);
         // Disparar el evento del socket
-        changeNameBand(id, name)
+        socket.emit('change-name-band', { id, name })
+    }
 
-        
+    const voteBand = (id) => {
+        // console.log('Votar banda', id);
+        socket.emit('vote-band', id)
+    }
+
+    // deleteBand
+    const deleteBand = (id) => {
+        // console.log('Borrar banda', id);
+        socket.emit('delete-band', id)
     }
 
     return (
