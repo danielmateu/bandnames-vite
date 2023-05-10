@@ -1,36 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
 import { BandAdd, BandList } from "./components"
-import io from "socket.io-client"
-
-const connectSocketServer = () => {
-  const socket = io.connect('http://localhost:8080', {
-    transports: ['websocket']
-  })
-  return socket
-
-}
+import { useSocket } from "./hooks/useSocket"
 
 function App() {
-
-  const [socket] = useState(() => connectSocketServer())
-  const [onLine, setOnLine] = useState(false)
-
   const [bands, setBands] = useState([])
 
-  useEffect(() => {
-    setOnLine(socket.connected)
-  }, [onLine])
-
-  useEffect(() => {
-    socket.on('connect', () => {
-      setOnLine(true)
-    })
-
-    socket.on('disconnect', () => {
-      setOnLine(false)
-    })
-  }, [socket])
+  const { socket, onLine } = useSocket('http://localhost:8080')
 
   useEffect(() => {
     socket.on('current-bands', (bands) => {
@@ -41,7 +17,6 @@ function App() {
   const voteBand = (id) => {
     // console.log('Votar banda', id);
     socket.emit('vote-band', id)
-
   }
 
   // deleteBand
@@ -61,6 +36,7 @@ function App() {
     // console.log('Agregar banda', name);
     socket.emit('add-band', { name })
   }
+
 
   return (
     <div className="bg-gray-400 min-h-screen">

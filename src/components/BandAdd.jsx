@@ -8,7 +8,7 @@ export const BandAdd = ({ addBand }) => {
 
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log(valor);
+        // console.log(valor);
         if(valor.trim().length > 2){
             addBand(valor)
             setValor('')
