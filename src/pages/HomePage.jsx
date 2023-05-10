@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext } from "react"
-import { BandAdd, BandChart, BandList } from "../components"
+import { BandAdd, BandList } from "../components"
 import { SocketContext } from "../context/SocketContext"
+import { BandChart } from "../components/BandChart"
 
 function HomePage() {
 
@@ -16,6 +17,7 @@ function HomePage() {
           (<span className="text-red-500 font-bold">Offline</span>)
       }</p>
 
+      {/* <BandChart/> */}
       <BandChart/>
 
       <div className="flex flex-col md:flex-row justify-center items-center md:items-start py-10 gap-4">
