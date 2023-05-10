@@ -4,8 +4,8 @@ import { BandAdd, BandList } from "./components"
 import { useSocket } from "./hooks/useSocket"
 
 function App() {
-  const [bands, setBands] = useState([])
 
+  const [bands, setBands] = useState([])
   const { socket, onLine } = useSocket('http://localhost:8080')
 
   useEffect(() => {
@@ -31,13 +31,6 @@ function App() {
     socket.emit('change-name-band', { id, name })
   }
 
-  // addBand
-  const addBand = (name) => {
-    // console.log('Agregar banda', name);
-    socket.emit('add-band', { name })
-  }
-
-
   return (
     <div className="bg-gray-400 min-h-screen">
 
@@ -55,7 +48,7 @@ function App() {
           changeNameBand={changeNameBand}
         />
         <BandAdd
-          addBand={addBand}
+          // addBand={addBand}
         />
       </div>
     </div>

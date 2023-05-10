@@ -1,16 +1,18 @@
 import { useState } from "react"
+import { useSocket } from "../hooks/useSocket"
 
 
 // eslint-disable-next-line react/prop-types
-export const BandAdd = ({ addBand }) => {
+export const BandAdd = () => {
 
     const [valor, setValor] = useState('')
+    const { socket } = useSocket('http://localhost:8080')
 
     const onSubmit = (e) => {
         e.preventDefault()
         // console.log(valor);
-        if(valor.trim().length > 2){
-            addBand(valor)
+        if (valor.trim().length > 2) {
+            socket.emit('add-band', { name: valor })
             setValor('')
         }
     }
