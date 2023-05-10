@@ -103,16 +103,7 @@ export const BandChart = () => {
         });
     }
 
-
-
-
-
-
-
-
-
-
     return (
-        <canvas id="myChart" className='bg-slate-200 p-4 mx-6 mt-6 rounded-xl shadow-lg'></canvas>
+        <canvas id="myChart" className='bg-white p-4 mx-6 mt-6 rounded-xl shadow-lg'></canvas>
     )
 }
